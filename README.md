@@ -116,7 +116,8 @@ final class User
  
   const REQUIRED = [
     'user_id' => 'numeric',
-    'name' => 'string'
+    'name' => 'string',
+    'birthday' => '\DateTimeImmutable'
   ];
   
   const OPTIONAL = [
