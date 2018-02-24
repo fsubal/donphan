@@ -68,6 +68,15 @@ function doSomethingForUser(User $user)
 
 Not perfect, but now you have type safety with ease.
 
+## How to use
+
+- Define your own model class
+- `use \Donphan\Immutable` inside
+- Define `const REQUIRED = [...]`, and `const OPTIONAL = [...]` if you want.
+- If you need, define `static function`s `beforeTypeCheck` or `afterTypeCheck` (See [Lifecycle methods](https://github.com/fsubal/donphan/#lifecycle-methods))
+
+Then, you can use `YourClass::from(array $params)` or `YourClass::validate(array $params)`.
+
 ## Type checking
 
 Donphan supports these types.
