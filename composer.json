@@ -1,11 +1,11 @@
 {
-    "name": "f_subal/donphan",
+    "name": "fsubal/donphan",
     "description": "Utility traits for type-safe & immutable entity in PHP",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "subal",
+            "name": "fsubal",
             "email": "fsubal1102@gmail.com"
         }
     ],
