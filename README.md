@@ -18,16 +18,16 @@ In PHP application without certain frameworks, `array`s are often used as domain
 <?php
 
 $user = [
-  'user_id' => validateInt($_POST['user_id']),
-  'name' => validateString($_POST['name']),
+    'user_id' => validateInt($_POST['user_id']),
+    'name' => validateString($_POST['name']),
 ];
 
 ...
 
 function doSomethingForUser(array $user)
 {
-  $name = $user['name'];
-  ...
+    $name = $user['name'];
+    ...
 }
 ```
 
@@ -45,24 +45,24 @@ It provides two utility traits.
 
 final class User
 {
-  use \Donphan\Immutable;
+    use \Donphan\Immutable;
  
-  const REQUIRED = [
-    'user_id' => 'numeric',
-    'name' => 'string'
-  ];
+    const REQUIRED = [
+        'user_id' => 'numeric',
+        'name' => 'string'
+    ];
 }
 
 // and then
 $user = User::from([
-  'user_id' => $_POST['user_id'],
-  'name' => $_POST['name']
+    'user_id' => $_POST['user_id'],
+    'name' => $_POST['name']
 ]);
 
 function doSomethingForUser(User $user)
 {
-  $name = $user->name;
-  ...
+    $name = $user->name;
+    ...
 }
 ```
 
@@ -73,7 +73,7 @@ Not perfect, but now you have type safety with ease.
 - Define your own model class
 - `use \Donphan\Immutable` inside
 - Define `const REQUIRED = [...]`, and `const OPTIONAL = [...]` if you want.
-- If you need, define `static function`s `beforeTypeCheck` or `afterTypeCheck` (See [Lifecycle methods](https://github.com/fsubal/donphan/#lifecycle-methods))
+- If you need, define `static function`s `beforeTypeCheck` or `afterTypeCheck` (See [Lifecycle methods](#lifecycle-methods))
 
 Then, you can use `YourClass::from(array $params)` or `YourClass::validate(array $params)`.
 
@@ -121,32 +121,32 @@ Example below
 ```php
 final class User
 {
-  use \Donphan\Immutable;
+    use \Donphan\Immutable;
  
-  const REQUIRED = [
-    'user_id' => 'numeric',
-    'name' => 'string',
-    'birthday' => '\DateTimeImmutable'
-  ];
-  
-  const OPTIONAL = [
-    'url' => 'string'
-  ];
-  
-  public static function beforeTypeCheck(array $params)
-  {
-    if (!isset($params['url'])) {
-      $params['url'] = 'https://example.com';
+    const REQUIRED = [
+        'user_id' => 'numeric',
+        'name' => 'string',
+        'birthday' => '\DateTimeImmutable'
+    ];
+    
+    const OPTIONAL = [
+        'url' => 'string'
+    ];
+    
+    public static function beforeTypeCheck(array $params)
+    {
+        if (!isset($params['url'])) {
+            $params['url'] = 'https://example.com';
+        }
+        return $params;
     }
-    return $params;
-  }
-  
-  public static function afterTypeCheck(array $params)
-  {
-    if (strlen($params['name']) == 0) {
-      throw new \InvalidArgumentException('params[name] must not be empty!');
+    
+    public static function afterTypeCheck(array $params)
+    {
+        if (strlen($params['name']) == 0) {
+            throw new \InvalidArgumentException('params[name] must not be empty!');
+        }
     }
-  }
 }
 ```
 
