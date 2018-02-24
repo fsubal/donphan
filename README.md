@@ -2,6 +2,14 @@
 
 Utility traits for type-safe &amp; immutable entity in PHP.
 
+## Install 
+
+https://packagist.org/packages/fsubal/donphan
+
+```
+composer require fsubal/donphan
+```
+
 ## Why Donphan ?
 
 In PHP application without certain frameworks, `array`s are often used as domain models.
