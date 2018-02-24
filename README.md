@@ -4,7 +4,7 @@ Utility traits for type-safe &amp; immutable entity in PHP.
 
 ## Why Donphan ?
 
-In legacy PHP application (without certain frameworks), `array`s are often used as domain models.
+In PHP application without certain frameworks, `array`s are often used as domain models.
 
 ```php
 <?php
@@ -133,6 +133,10 @@ final class User
 ```
 
 Note that the `url` added in `beforeTypeCheck` is also type checked (if it is written in `REQUIRED` or `OPTIONAL`).
+
+## Requirements
+
+PHP 5.6+ ( Needs to be writable `const` with array in classes )
 
 ## LICENSE
 
