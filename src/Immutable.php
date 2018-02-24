@@ -25,7 +25,17 @@ trait Immutable
         if ($deep === false) {
             return $this->_value;
         }
-        return json_decode(json_encode($this->_value), true);
+
+        $result = [];
+        foreach ($this->_value as $prop => $value) {
+            if (is_callable([$value, 'toArray'])) {
+                $result[$prop] = $value->toArray(true);
+                continue;
+            }
+            $result[$prop] = $value;
+        }
+
+        return json_decode(json_encode($result), true);
     }
 
     public function __get($prop)
