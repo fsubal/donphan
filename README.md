@@ -2,7 +2,7 @@
 
 Utility traits for type-safe &amp; immutable entity in PHP.
 
-## Install 
+## Install
 
 https://packagist.org/packages/fsubal/donphan
 
@@ -37,8 +37,8 @@ When refactoring these mess (or migrating to completely new framework) seems too
 
 It provides two utility traits.
 
-- `\Donphan\Validatable`: provides `::validate` method, and lifecycle hooks.
-- `\Donphan\Immutable`: provides `::from` factory method.
+* `\Donphan\Validatable`: provides `::validate` method, and lifecycle hooks.
+* `\Donphan\Immutable`: provides `::from` factory method.
 
 ```php
 <?php
@@ -46,7 +46,7 @@ It provides two utility traits.
 final class User
 {
     use \Donphan\Immutable;
- 
+
     const REQUIRED = [
         'user_id' => 'numeric',
         'name' => 'string'
@@ -70,10 +70,10 @@ Not perfect, but now you have type safety with ease.
 
 ## How to use
 
-- Define your own model class
-- `use \Donphan\Immutable` inside
-- Define `const REQUIRED = [...]`, and `const OPTIONAL = [...]` if you want.
-- If you need, define `static function`s `beforeTypeCheck` or `afterTypeCheck` (See [Lifecycle methods](#lifecycle-methods))
+* Define your own model class
+* `use \Donphan\Immutable` inside
+* Define `const REQUIRED = [...]`, and `const OPTIONAL = [...]` if you want.
+* If you need, define `static function`s `beforeTypeCheck` or `afterTypeCheck` (See [Lifecycle methods](#lifecycle-methods))
 
 Then, you can use `YourClass::from(array $params)` or `YourClass::validate(array $params)`.
 
@@ -81,27 +81,27 @@ Then, you can use `YourClass::from(array $params)` or `YourClass::validate(array
 
 Donphan supports these types.
 
-- `mixed`
-- `int`
-- `float`
-- `numeric`
-- `string`
-- `boolean`
-- `array`
-- and any defined `class` name.
+* `mixed`
+* `int`
+* `float`
+* `numeric`
+* `string`
+* `boolean`
+* `array`
+* and any defined `class` name.
 
-`numeric` looks like an original type ? Yes, but it is just validated by `is_numeric` ( http://php.net/manual/ja/function.is-numeric.php ).
+`numeric` looks like an original type ? Yes, but it is just validated by `is_numeric` ( https://secure.php.net/manual/en/function.is-numeric.php ).
 
 It is almost like `int|string`, useful for some ids in `$_GET` or `$_POST` or something.
 
 These types are not supported.
 
-- `null`
-- `resource`
-- `callable`
-- `Closure`
-- `Exception`
-- `Error`
+* `null`
+* `resource`
+* `callable`
+* `Closure`
+* `Exception`
+* `Error`
 
 ## Lifecycle methods
 
@@ -111,8 +111,8 @@ Then, the lifecycle methods might be needed.
 
 `\Donphan\Validatable` provides two lifecycle methods.
 
-- `beforeTypeCheck`: Executed just before type checking. It gets original params, and you must return an `array`.
-- `afterTypeCheck`: Executed just before type checking. It gets original params, and you must NOT return anything.
+* `beforeTypeCheck`: Executed just before type checking. It gets original params, and you must return an `array`.
+* `afterTypeCheck`: Executed just after type checking. It gets original params, and you must NOT return anything.
 
 `beforeTypeCheck` is useful for mutating the original array, and `afterTypeCheck` is useful for performing additional validations.
 
@@ -122,17 +122,17 @@ Example below
 final class User
 {
     use \Donphan\Immutable;
- 
+
     const REQUIRED = [
         'user_id' => 'numeric',
         'name' => 'string',
         'birthday' => '\DateTimeImmutable'
     ];
-    
+
     const OPTIONAL = [
         'url' => 'string'
     ];
-    
+
     public static function beforeTypeCheck(array $params)
     {
         if (!isset($params['url'])) {
@@ -140,7 +140,7 @@ final class User
         }
         return $params;
     }
-    
+
     public static function afterTypeCheck(array $params)
     {
         if (strlen($params['name']) == 0) {

@@ -1,29 +1,29 @@
 {
-    "name": "fsubal/donphan",
-    "description": "Utility traits for type-safe & immutable entity in PHP",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "fsubal",
-            "email": "fsubal1102@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Donphan\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Donphan\\": "tests/"
-        }
-    },
-    "require": {},
-    "require-dev": {
-        "phpunit/phpunit": "^6.5"
-    },
-    "scripts": {
-        "test": "phpunit"
+  "name": "fsubal/donphan",
+  "description": "Utility traits for type-safe & immutable entity in PHP",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "fsubal",
+      "email": "fsubal1102@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Donphan\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Donphan\\": "tests/"
+    }
+  },
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
 }
