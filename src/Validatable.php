@@ -25,6 +25,7 @@ trait Validatable
 
     private static $_DEFAULT_FORBIDDEN_TYPES = [
         'null',
+        'object',
         'resource',
         'callable', // functions should be methods, not properties
         Closure::class,
@@ -47,12 +48,12 @@ trait Validatable
     private static function _execTypeCheck(array $params)
     {
         if (!defined('static::REQUIRED')) {
-            throw new LogicException(__CLASS__ . ' has no private const REQUIRED.');
+            throw new LogicException(static::class . ' has no private const REQUIRED.');
         }
 
         foreach (static::REQUIRED as $prop => $type) {
             if (!isset($params[$prop])) {
-                throw new InvalidArgumentException(__CLASS__ . ": params['{$prop}'] is not set.");
+                throw new InvalidArgumentException(static::class . ": params['{$prop}'] is not set.");
             }
             static::_assertTypeOfPropValue($prop, $params[$prop], $type);
         }

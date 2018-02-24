@@ -31,7 +31,7 @@ trait Immutable
     public function __get($prop)
     {
         if (!isset($this->_value[$prop])) {
-            throw new \InvalidArgumentException(__CLASS__ . " has no property called '{$prop}'");
+            throw new \InvalidArgumentException(static::class . " has no property called '{$prop}'");
         }
         return $this->_value[$prop];
     }

@@ -97,6 +97,7 @@ It is almost like `int|string`, useful for some ids in `$_GET` or `$_POST` or so
 These types are not supported.
 
 * `null`
+* `object`
 * `resource`
 * `callable`
 * `Closure`
