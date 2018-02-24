@@ -16,8 +16,8 @@ trait Immutable
 
     public static function from(array $params)
     {
-        $params = self::validate($params);
-        return new self($params);
+        $params = static::validate($params);
+        return new static($params);
     }
 
     public function toArray($deep = true)

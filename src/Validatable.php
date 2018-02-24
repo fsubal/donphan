@@ -34,57 +34,57 @@ trait Validatable
 
     public static function validate(array $params)
     {
-        if (is_callable('self::beforeTypeCheck')) {
-            $params = self::beforeTypeCheck($params);
+        if (is_callable('static::beforeTypeCheck')) {
+            $params = static::beforeTypeCheck($params);
         }
-        self::_execTypeCheck($params);
-        if (is_callable('self::afterTypeCheck')) {
-            self::afterTypeCheck($params);
+        static::_execTypeCheck($params);
+        if (is_callable('static::afterTypeCheck')) {
+            static::afterTypeCheck($params);
         }
         return $params;
     }
 
     private static function _execTypeCheck(array $params)
     {
-        if (!defined('self::REQUIRED')) {
+        if (!defined('static::REQUIRED')) {
             throw new LogicException(__CLASS__ . ' has no private const REQUIRED.');
         }
 
-        foreach (self::REQUIRED as $prop => $type) {
+        foreach (static::REQUIRED as $prop => $type) {
             if (!isset($params[$prop])) {
                 throw new InvalidArgumentException(__CLASS__ . ": params['{$prop}'] is not set.");
             }
-            self::_assertTypeOfPropValue($prop, $params[$prop], $type);
+            static::_assertTypeOfPropValue($prop, $params[$prop], $type);
         }
-        if (!defined('self::OPTIONAL')) {
+        if (!defined('static::OPTIONAL')) {
             return;
         }
-        foreach (self::OPTIONAL as $prop => $type) {
+        foreach (static::OPTIONAL as $prop => $type) {
             if (!isset($params[$prop])) {
                 continue;
             }
-            self::_assertTypeOfPropValue($prop, $params[$prop], $type);
+            static::_assertTypeOfPropValue($prop, $params[$prop], $type);
         }
     }
 
     private static function _assertTypeOfPropValue(string $prop, $value, string $type)
     {
-        if ($type === self::$_TYPE_MIXED) {
+        if ($type === static::$_TYPE_MIXED) {
             return;
         }
 
-        if (in_array($type, self::$_DEFAULT_FORBIDDEN_TYPES, true)) {
+        if (in_array($type, static::$_DEFAULT_FORBIDDEN_TYPES, true)) {
             throw new LogicException("using '{$type}' is not allowed (params['{$prop}'])");
         }
 
-        foreach (self::$_DEFAULT_FORBIDDEN_TYPES as $forbidden_type) {
+        foreach (static::$_DEFAULT_FORBIDDEN_TYPES as $forbidden_type) {
             if (is_subclass_of($type, $forbidden_type)) {
                 throw new LogicException("using '{$type}' (subclass of {$forbidden_type}) is not allowed (params['{$prop}'])");
             }
         }
 
-        if (isset(self::$_DEFAULT_VALIDATORS[$type])) {
-            $validator = self::$_DEFAULT_VALIDATORS[$type];
+        if (isset(static::$_DEFAULT_VALIDATORS[$type])) {
+            $validator = static::$_DEFAULT_VALIDATORS[$type];
         } elseif (class_exists($type)) {
             $validator = function ($value) use ($type) {
                 return $value instanceof $type;
