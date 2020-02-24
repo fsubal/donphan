@@ -40,7 +40,7 @@ trait Immutable
 
     public function __get($prop)
     {
-        if (!isset($this->_value[$prop])) {
+        if (!array_key_exists($prop, $this->_value)) {
             throw new \InvalidArgumentException(static::class . " has no property called '{$prop}'");
         }
         return $this->_value[$prop];
